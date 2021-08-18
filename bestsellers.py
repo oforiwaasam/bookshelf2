@@ -5,7 +5,7 @@ from dotenv import load_dotenv
 load_dotenv() # running this will create environment variables
 
 api_key = os.getenv('api_key')
-print(type(api_key))
+#print(type(api_key))
 
 def bestsellers_category():
   #api_key = os.getenv('api_key')
