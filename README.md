@@ -1,2 +1,2 @@
-# bookshelf2
+# BooksHub
 Web app for book lovers, made by my curious self and with more features!
