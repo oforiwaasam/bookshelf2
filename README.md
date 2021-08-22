@@ -8,6 +8,7 @@ Web app for book lovers, made by my curious self and with more features!
     - This walkthrough video I found on Youtube will really help (for Mac users): https://youtu.be/nZYJKXXMvkM
 - 📝 How to install and use MDBootstrap to create responsive websites
 - 📝 Using the prettier code formatter to beautifully format code in VS Code (my favorite editor)
+- 📝 How to flash messages in Flask
 
 
 ## 🚀 Demo

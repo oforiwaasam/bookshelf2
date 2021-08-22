@@ -6,7 +6,7 @@
 }
 
 .background {
-  background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url(./img/mlbooks.jpg);
+  background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('./img/booklaptop.jpg');
   background-size: cover;
   background-position: center;
   height: 130vh;
@@ -107,18 +107,18 @@
   background: #F3DCD4;
 }
 
-.signup {
+.login {
   font-size: 15px;
   font-family: 'Poppins', sans-serif;
   color: #fff;
 }
 
-.signup a {
+.login a {
   color: #3498db;
   text-decoration: none;
 }
 
-.signup a:hover {
+.login a:hover {
   text-decoration: underline;
 }
 

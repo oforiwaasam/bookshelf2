@@ -3,12 +3,13 @@
 
     {% block head %}
         <!-- Custom styles -->
-        <link rel="stylesheet" href="./static/login.css" />
+        <link rel="stylesheet" href="{{ url_for('static', filename = 'login.css') }}" />
     {% endblock %}
 
     {% block content %}
         <div class="background">
             <div class="content">
+                <!-- Get all messages that have been flashed with their categories -->
                 {% with messages = get_flashed_messages(with_categories=true) %}
                 {% if messages %}
                     {% for category, message in messages %}
