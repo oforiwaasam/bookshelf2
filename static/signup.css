@@ -107,18 +107,18 @@
   background: #F3DCD4;
 }
 
-.login {
+.signup {
   font-size: 15px;
   font-family: 'Poppins', sans-serif;
   color: #fff;
 }
 
-.login a {
+.signup a {
   color: #3498db;
   text-decoration: none;
 }
 
-.login a:hover {
+.signup a:hover {
   text-decoration: underline;
 }
 

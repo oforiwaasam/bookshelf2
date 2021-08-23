@@ -46,6 +46,7 @@ class User(db.Model, UserMixin):
     email = db.Column(db.String(120), unique=True, nullable=False)
     # password can store 200 characters because of hashing
     password = db.Column(db.String(200), nullable=False)
+    image_file = db.Column(db.String(20), nullable=False, default='avatar.png')
     account_date = db.Column(db.DateTime(timezone=True), index=False, unique=False, nullable=True)
     last_login = db.Column(db.DateTime(timezone=True), index=False, unique=False, nullable=True)
     # notes all of the notes that a user has created
@@ -131,9 +132,9 @@ def signup():
 @app.route('/profile', methods=['GET', 'POST'])
 @login_required
 def profile():
-  
+  image_file = url_for('static', filename='img/' + current_user.image_file)
   #### Return a rendered index.html file
-  return render_template("profile.html", user=current_user)
+  return render_template("profile.html", user=current_user, image_file=image_file)
 
 # user cannot access this route unless their logged in
 @app.route('/logout')

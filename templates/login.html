@@ -2,6 +2,7 @@
     {% block title %}Login{% endblock %}
 
     {% block head %}
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous"/>
         <!-- Custom styles -->
         <link rel="stylesheet" href="{{ url_for('static', filename = 'login.css') }}" />
     {% endblock %}
@@ -13,7 +14,7 @@
                 {% with messages = get_flashed_messages(with_categories=true) %}
                 {% if messages %}
                     {% for category, message in messages %}
-                        <div class="alert alert-{{ category }} alter-dismissable fade show">
+                        <div class="alert alert-{{ category }} alter-dismissable" role="alert">
                             <button type="button" class="close" data-dismiss="alert">
                                 <span aria-hidden="true">&times;</span>
                             </button>
@@ -51,31 +52,30 @@
 
                         <div class="username">
                         <!-- prints the username label (text to help the user know where to enter their username) -->
-                        {{ form.username.label(class="field") }}
+                        <!-- Took labels out and replaced them with placeholders -->
                         {% if form.username.errors %}
-                            {{ form.username(class="form-control form-control-lg is-invalid") }}
+                            {{ form.username(class="field is-invalid") }}
                             <div class="invalid-feedback">
                                 {% for error in form.username.errors %}
                                     <span>{{ error }}</span>
                                 {% endfor %}
                             </div>
                         {% else %}
-                            {{ form.username(class="form-control form-control-lg", placeholder="Username") }}
+                            {{ form.username(class="field", placeholder="Username") }}
                         {% endif %}
                         </div>
 
                         <div class="password">
                             <!-- prints the password label (text to help the user know where to enter their password) -->
-                            {{ form.password.label(class="field space") }}
                             {% if form.password.errors %}
-                                {{ form.password(class="form-control form-control-lg is-invalid") }}
+                                {{ form.password(class="field space is-invalid") }}
                                 <div class="invalid-feedback">
                                     {% for error in form.password.errors%}
                                         <span>{{error}}</span>
                                     {% endfor %}
                                 </div>
                             {% else %}
-                                {{ form.password(class="form-control form-control-lg", placeholder="Password") }}
+                                {{ form.password(class="field space", placeholder="Password") }}
                             {% endif %}
                             <div class="forgot-pass">
                                 Forgot password? <a href="#">Reset Password</a>

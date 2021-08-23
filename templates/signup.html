@@ -31,58 +31,54 @@
               <fieldset class="form-group">
 
                 <div class="username">
-                {{ form.username.label(class="field") }}
                 {% if form.username.errors %}
-                  {{ form.username(class="form-control form-control-lg is-invalid") }}
+                  {{ form.username(class="field is-invalid") }}
                   <div class="invalid-feedback">
                     {% for error in form.username.errors%}
                       <span>{{error}}</span>
                     {% endfor %}
                   </div>
                 {% else %}
-                  {{ form.username(class="form-control form-control-lg", placeholder="Enter username") }}
+                  {{ form.username(class="field", placeholder="Enter username") }}
                 {% endif %}
                 </div>
 
                 <div class="email">
-                    {{ form.email.label(class="field space") }}
                     {% if form.email.errors %}
-                      {{ form.email(class="form-control form-control-lg is-invalid") }}
+                      {{ form.email(class="field space is-invalid") }}
                       <div class="invalid-feedback">
                         {% for error in form.email.errors%}
                             <span>{{error}}</span>
                         {% endfor %}
                       </div>
                   {% else %}
-                      {{ form.email(class="form-control form-control-lg", placeholder="Enter email") }}
+                      {{ form.email(class="field space", placeholder="Enter email") }}
                   {% endif %}
                 </div>
 
                 <div class="password">
-                    {{ form.password.label(class="field space") }}
                     {% if form.password.errors %}
-                      {{ form.password(class="form-control form-control-lg is-invalid") }}
+                      {{ form.password(class="field space is-invalid") }}
                       <div class="invalid-feedback">
                         {% for error in form.password.errors%}
                             <span>{{error}}</span>
                         {% endfor %}
                       </div>
                   {% else %}
-                      {{ form.password(class="form-control form-control-lg", placeholder="Enter password") }}
+                      {{ form.password(class="field space", placeholder="Enter password") }}
                   {% endif %}
                 </div>
 
                 <div class="confirm-password">
-                    {{ form.confirm_password.label(class="field space") }}
                     {% if form.confirm_password.errors %}
-                      {{ form.confirm_password(class="form-control form-control-lg is-invalid") }}
+                      {{ form.confirm_password(class="field space is-invalid") }}
                       <div class="invalid-feedback">
                         {% for error in form.confirm_password.errors%}
                             <span>{{error}}</span>
                         {% endfor %}
                       </div>
                   {% else %}
-                      {{ form.confirm_password(class="form-control form-control-lg", placeholder="Confirm password") }}
+                      {{ form.confirm_password(class="field space", placeholder="Confirm password") }}
                   {% endif %}
                 </div>
       
@@ -97,7 +93,7 @@
               </div>
 
               <div class="signup">
-                Already have an account? <a href="{{ url_for('signup') }}">Login Now</a>
+                Already have an account? <a href="{{ url_for('login') }}">Login Now</a>
               </div>
             </form>
           </div>
