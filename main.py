@@ -4,8 +4,8 @@ load_dotenv() # running this will create environment variables
 from flask import Flask, render_template, request, url_for, flash, redirect
 # from flask import logout_user
 # from flask_login import current_user, login_required
-from flask_login import UserMixin
-from login_manager import Login_Manager
+from flask_login import UserMixin, LoginManager
+# from login_manager import LoginManager
 # For the database
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy.sql import func
@@ -79,12 +79,13 @@ def login():
 
 @app.route('/signup', methods=['GET', 'POST'])
 def signup():
-  form = SignupForm()
   """
     validate on submit will only trigger if the incoming request is 
     a POST request containing form information, hence we don't check
     that request.method is equal to POST
   """
+  form = SignupForm()
+  
   if form.validate_on_submit(): # checks if entries are valid
         # Check database if username is already in use
         existing_user = User.query.filter_by(username=form.username.data).first()
@@ -101,11 +102,12 @@ def signup():
         # User can be registered
         user = User(username=form.username.data, 
                     email=form.email.data, 
-                    password= encrypt_password(form.password.data)) # check this out again
+                    # password= encrypt_password(form.password.data)
+                    password = form.password.data) # check this out again
         
         db.session.add(user)
         db.session.commit() # Create new user
-        login_user(user)  # Automatically logs the new user in
+        # login_user(user)  # Automatically logs the new user in
         return redirect(url_for('main_bp.dashboard')) # redirect user to their dashboard
         flash(f'Account created for {form.username.data}!', 'success')
   #### Return a rendered signup.html file

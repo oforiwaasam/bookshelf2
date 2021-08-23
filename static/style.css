@@ -13,7 +13,7 @@
   /* Default height for small devices */
   #intro-example {
     height: 400px;
-    background-image: url('books.png');
+    background-image: url('./img/books.png');
   }
 
   /* Height for devices larger than 992px */

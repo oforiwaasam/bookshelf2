@@ -42,8 +42,8 @@
 
                 <!-- This form will submit a post request -->
                 <form method="POST" action="/login">
-                    <!-- what does the line below do? -->
-                    {{ form.hidden_tag() }}
+                    <!-- what does the line below do? (It passes in your SECRET_KEY)--> 
+                    {{ form.hidden_tag() }} 
                     <!-- Wrap our form in a fieldset tag where it keeps our field, its label and all error message handling associated with submitting an invalid form -->
                     <fieldset class="form-group">
 
