@@ -81,6 +81,7 @@ def login():
 
         if logged_user and logged_user.check_password(password=form.password.data):
           login_user(logged_user)
+          flash("You've been successfully logged in", 'success')
           next_page = request.args.get('next')
           return redirect(next_page or url_for('profile'))
 
