@@ -1,10 +1,10 @@
 import os
 from dotenv import load_dotenv
 load_dotenv() # running this will create environment variables
-from flask import Flask, render_template, request, url_for, flash, redirect
+from flask import Flask, render_template, request, url_for, flash, redirect, session
 # from flask import logout_user
-# from flask_login import current_user, login_required
 from flask_login import UserMixin, LoginManager
+from flask_login import current_user, login_required, login_user, logout_user
 # from login_manager import LoginManager
 # For the database
 from flask_sqlalchemy import SQLAlchemy
@@ -17,6 +17,8 @@ db = SQLAlchemy(app)
 app.config['SECRET_KEY'] = 'akdhej klklejio jh'
 # Where our database will be located (in site.db)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///site.db'
+#Create login manager object          
+login_manager = LoginManager()     
 
 # Database model used to store User information
 class User(db.Model, UserMixin):
@@ -62,8 +64,8 @@ def login():
     requests when users attempt to submit a form
   """
     # Bypass if user is logged in (check this out)
-    # if current_user.is_authenticated:
-    #     return redirect(url_for('main_bp.dashboard'))
+  if current_user.is_authenticated:
+    return redirect(url_for('index'))
 
   form = LoginForm()
   if form.validate_on_submit(): # checks if entries are valid
@@ -107,18 +109,24 @@ def signup():
         
         db.session.add(user)
         db.session.commit() # Create new user
-        # login_user(user)  # Automatically logs the new user in
-        return redirect(url_for('main_bp.dashboard')) # redirect user to their dashboard
+        login_user(user)  # Automatically logs the new user in
+        return redirect(url_for('index')) # redirect user to their dashboard
         flash(f'Account created for {form.username.data}!', 'success')
   #### Return a rendered signup.html file
   return render_template("signup.html", form=form)
 
-# @app.route('/logout')
-# @login_required
-# def logout():
-#   logout_user()
-#   #### Return a rendered signup.html file
-#   return redirect(url_for('logout'))
+@app.route('/profile', methods=['GET', 'POST'])
+def profile():
+  
+  #### Return a rendered index.html file
+  return render_template("profile.html")
+
+@app.route('/logout')
+@login_required
+def logout():
+  logout_user()
+  #### Return a rendered login.html file
+  return redirect(url_for('login'))
 
 if __name__ == "__main__":
     app.run(debug=True)
