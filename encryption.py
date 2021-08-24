@@ -1,14 +1,12 @@
 # encryption.py
 
 # for keeping user passwords safe
-#
 
-from werkzeug.security import check_password_hash, generate_password_hash #install flask-bcrypt
-
+from werkzeug.security import check_password_hash, generate_password_hash 
 # sha256 is a hashing algorithm
-def encrypt_password(password):
+def encrypt_password(self, password):
     # Create hashed password
-    password = generate_password_hash(password, method='sha256')
+    password = generate_password_hash(self.password, method='sha256')
     return password
        
 
