@@ -9,9 +9,13 @@ DB_NAME = "site.db"
 login_manager = LoginManager()
 
 def create_app():
+    # database configuration
     app = Flask(__name__)
     app.config['SECRET_KEY'] = 'akdhej klklejio jh' 
-    app.config['SQLALCHEMY_DATABASE_URI'] = f'sqlite:///{DB_NAME}'
+    app.config['SQLALCHEMY_DATABASE_URI'] = f'sqlite:///{DB_NAME}' # path to database and its name
+    #to disable a feature that signals the application every time a 
+    # change is about to be made in the database
+    app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False 
 
     # Initialize plugins
     db.init_app(app)
