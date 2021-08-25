@@ -1,5 +1,6 @@
 from . import db
 from flask_login import UserMixin
+from datetime import datetime
 from sqlalchemy.sql import func
 from sqlalchemy.sql.functions import user
 from werkzeug.security import check_password_hash, generate_password_hash
@@ -15,7 +16,7 @@ class Note(db.Model):
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
 
     def __repr__(self):
-        return f"Note('{self.data}', '{self.date}')"
+        return f"Note('{self.data}', '{self.date}')" 
 
 
 # Database model used to store User information
@@ -30,8 +31,8 @@ class User(db.Model, UserMixin):
     # password can store 200 characters because of hashing
     password = db.Column(db.String(200), nullable=False)
     image_file = db.Column(db.String(20), nullable=False, default='avatar.png')
-    account_date = db.Column(db.DateTime(timezone=True), index=False, unique=False, nullable=True)
-    last_login = db.Column(db.DateTime(timezone=True), index=False, unique=False, nullable=True)
+    account_date = db.Column(db.DateTime(timezone=True), index=False, unique=False, nullable=False)
+    last_login = db.Column(db.DateTime(timezone=True), index=False, unique=False, nullable=False)
     # notes all of the notes that a user has created
     notes = db.relationship('Note') # Note here is the name of Note object created below
 

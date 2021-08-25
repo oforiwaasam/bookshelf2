@@ -1,3 +1,5 @@
+import os
+import secrets
 from flask import Blueprint, render_template, request, url_for, flash, redirect
 from flask_login import current_user, login_required, login_user, logout_user 
 from . import login_manager
@@ -14,7 +16,7 @@ def login():
     """
         # Bypass if user is logged in (check this out)
     if current_user.is_authenticated:
-        return redirect(url_for('profile'))
+        return redirect(url_for('auth.profile'))
 
     # creating an instance of login form
     form = LoginForm()
@@ -25,11 +27,11 @@ def login():
             login_user(logged_user)
             next_page = request.args.get('next')
             flash("You've been successfully logged in", 'success')
-            return redirect(next_page or url_for('profile'))
+            return redirect(next_page or url_for('auth.profile'))
 
-        # Username does not exist
-        flash('Invalid username or password', 'danger')
-        return redirect(url_for('login'))
+        else:
+            # Username does not exist
+            flash('Invalid username or password', 'danger')
 
     #### Return a rendered login.html file
     return render_template('login.html', form=form, user=current_user)
@@ -70,10 +72,21 @@ def signup():
             db.session.commit() # Update database with new user
             login_user(user)  # Automatically logs the new user in, you can set remember to true here
             flash(f'Account created for {form.username.data}!', 'success')
-            return redirect(url_for('index')) # redirect user to the home page
+            return redirect(url_for('main.index')) # redirect user to the home page
         flash('A user already exists with that username and/or email address')
     #### Return a rendered signup.html file
     return render_template("signup.html", form=form, user=current_user)
+
+def save_picture(form_picture):
+    random_hex = secrets.token_hex(8)
+    # Use underscore for variables you do not need
+    _, f_ext = os.path.splitext(form_picture.filename)
+    picture_fn = random_hex + f_ext
+    picture_path = os.path.join(auth.root_path, 'static/img', picture_fn)
+    form_picture.save(picture_path)
+
+    return picture_fn
+
 
 # user cannot access this route unless they are logged in
 @auth.route('/profile', methods=['GET', 'POST'])
@@ -82,11 +95,14 @@ def profile():
   form = updateProfileForm()
   
   if form.validate_on_submit():
+    if form.picture.data:
+        picture_file = save_picture(form.picture.data)
+        current_user.image_file = picture_file
     current_user.username = form.username.data
     current_user.email = form.email.data
     db.session.commit()
     flash('Your account has been updated!', 'success')
-    return redirect(url_for('profile'))
+    return redirect(url_for('auth.profile'))
 
   # populating form with current user's data
   elif request.method == 'GET':
@@ -110,4 +126,4 @@ def load_user(id):
 def unauthorized():
     """Redirect unauthorized users to Login page."""
     flash('You must be logged in to view that page.')
-    return redirect(url_for('login'))
+    return redirect(url_for('auth.login'))

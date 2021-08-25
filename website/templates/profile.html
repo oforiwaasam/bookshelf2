@@ -35,14 +35,14 @@
       <!-- Collapsible wrapper -->
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <!-- Navbar brand -->
-        <a class="navbar-brand" href="{{ url_for('index') }}">BooksHub</a>
+        <a class="navbar-brand" href="{{ url_for('main.index') }}">BooksHub</a>
         <!-- Left links -->
         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
           <li class="nav-item">
             <a class="nav-link" href="#">About</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="{{ url_for('logout') }}">Logout</a>
+            <a class="nav-link" href="{{ url_for('main.logout') }}">Logout</a>
           </li>
         </ul>
         <!-- Left links -->
@@ -79,7 +79,7 @@
             <a class="dropdown-item" href="#">Settings</a>
           </li>
           <li>
-            <a class="dropdown-item" href="{{ url_for('logout') }}">Logout</a>
+            <a class="dropdown-item" href="{{ url_for('main.logout') }}">Logout</a>
           </li>
         </ul>
       </div>
@@ -99,7 +99,7 @@
     </div>
     <!-- FORM HERE -->
     <div class="content-section">
-      <form method="POST" action="">
+      <form method="POST" action="" enctype="multipart/form-data">
         {{ form.hidden_tag() }}
         
         <fieldset class="form-group">
@@ -132,6 +132,15 @@
             {% else %}
                 {{ form.email(class="form-control form-control-lg") }}
             {% endif %}
+          </div>
+          <div class="form-group">
+            {{ form.picture.label() }}
+                {{ form.picture(class="form-control-file") }}
+                  {% if form.picture.errors %}
+                    {% for error in form.picture.errors%}
+                      <span class="text-danger">{{ error }}</span><br>
+                    {% endfor %}
+                  {% endif %}
           </div>
 
         </fieldset>
