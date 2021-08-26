@@ -43,6 +43,7 @@ def signup():
         a POST request containing form information, hence we don't check
         that request.method is equal to POST
     """
+    # initialize Signup form
     form = SignupForm()
   
     if form.validate_on_submit(): # checks if entries are valid
