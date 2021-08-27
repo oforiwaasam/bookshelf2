@@ -1,5 +1,6 @@
 import os
 import secrets
+from PIL import Image
 from flask import Blueprint, render_template, request, url_for, flash, redirect
 from flask_login import current_user, login_required, login_user, logout_user 
 from . import login_manager
@@ -25,8 +26,8 @@ def login():
 
         if logged_user and logged_user.check_password(password=form.password.data):
             login_user(logged_user)
-            next_page = request.args.get('next')
             flash("You've been successfully logged in", 'success')
+            next_page = request.args.get('next')
             return redirect(next_page or url_for('auth.profile'))
 
         else:
@@ -60,8 +61,8 @@ def signup():
             #     return render_template('signup.html', title='Register', form=form)
 
         exist_username = User.query.filter_by(username=form.username.data).first()
-        exist_email = User.query.filter_by(username=form.email.data).first()
-        if exist_username is None and  exist_email is None:
+        exist_email = User.query.filter_by(email=form.email.data).first()
+        if exist_username is None and exist_email is None:
             # User can be registered
             user = User(username=form.username.data, 
                         email=form.email.data
@@ -74,17 +75,22 @@ def signup():
             login_user(user)  # Automatically logs the new user in, you can set remember to true here
             flash(f'Account created for {form.username.data}!', 'success')
             return redirect(url_for('main.index')) # redirect user to the home page
-        flash('A user already exists with that username and/or email address')
+        flash('A user already exists with that username and/or email address', 'danger')
     #### Return a rendered signup.html file
     return render_template("signup.html", form=form, user=current_user)
 
 def save_picture(form_picture):
+    # generate random hex for image
     random_hex = secrets.token_hex(8)
     # Use underscore for variables you do not need
     _, f_ext = os.path.splitext(form_picture.filename)
     picture_fn = random_hex + f_ext
     picture_path = os.path.join(auth.root_path, 'static/img', picture_fn)
-    form_picture.save(picture_path)
+    # Resizing image before saving it
+    output_size = (125, 125)
+    new_image = Image.open(form_picture)
+    new_image.thumbnail(output_size)
+    new_image.save(picture_path)
 
     return picture_fn
 
@@ -126,5 +132,5 @@ def load_user(id):
 @login_manager.unauthorized_handler
 def unauthorized():
     """Redirect unauthorized users to Login page."""
-    flash('You must be logged in to view that page.')
+    flash('You must be logged in to view that page.', 'danger')
     return redirect(url_for('auth.login'))

@@ -1,5 +1,5 @@
-from flask import Blueprint, render_template, url_for, redirect
-from flask_login import current_user, login_required, login_user, logout_user 
+from flask import Blueprint, render_template, flash, url_for, redirect
+from flask_login import login_required, logout_user 
 
 main = Blueprint('main', __name__)
 
@@ -17,5 +17,6 @@ def index():
 @login_required
 def logout():
   logout_user()
+  flash("You've been logged out", 'success')
   #### Return a rendered login.html file
   return redirect(url_for('auth.login'))

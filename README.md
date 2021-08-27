@@ -10,6 +10,7 @@ Web app for book lovers, made by my curious self and with more features!
 - 📝 Using the prettier code formatter to beautifully format code in VS Code (my favorite editor)
 - 📝 How to flash messages in Flask
 - 📝 Encrypting password with Flask's werkzeug.security package
+- 📝 Resizing large user profile images before they're added to file system (using a Python package called Pillow)
 
 
 ## 🚀 Demo

@@ -12,9 +12,10 @@
     <!-- MDB -->
     <link rel="stylesheet" href="{{ url_for('static', filename = 'css/mdb.min.css') }}" />
     <!-- CSS only -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">    
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">   
     <!-- Custom styles -->
     <link rel="stylesheet" href="{{ url_for('static', filename = 'main.css') }}" />
+    
     {% block head %}{% endblock %}
   </head>
   <body>
@@ -64,19 +65,16 @@
           <a href="" class="me-4 text-reset">
             <i class="fab fa-facebook-f"></i>
           </a>
-          <a href="" class="me-4 text-reset">
+          <a href="https://twitter.com/lilyoforiwaa" class="me-4 text-reset">
             <i class="fab fa-twitter"></i>
           </a>
-          <!-- <a href="" class="me-4 text-reset">
-            <i class="fab fa-google"></i>
-          </a> -->
-          <a href="" class="me-4 text-reset">
+          <a href="https://www.instagram.com/s.lee_lee/" class="me-4 text-reset">
             <i class="fab fa-instagram"></i>
           </a>
           <a href="https://www.linkedin.com/in/lily-oforiwaa-sam/" class="me-4 text-reset">
             <i class="fab fa-linkedin"></i>
           </a>
-          <a href="" class="me-4 text-reset">
+          <a href="https://github.com/oforiwaasam" class="me-4 text-reset">
             <i class="fab fa-github"></i>
           </a>
         </div>
@@ -145,8 +143,14 @@
               <!-- Links -->
               <h6 class="text-uppercase fw-bold mb-4">Contact</h6>
               <p><i class="fas fa-home me-3"></i> New York, NY 10027, US</p>
-              <p><i class="fas fa-envelope me-3"></i>los2119@columbia.edu</p>
-              <p><i class="fas fa-envelope me-3"></i>lilyoforiwaas@gmail.com</p>
+              <p>
+                <i class="fas fa-envelope me-3"></i>
+                <a href="mailto:los2119@columbia.edu" class="text-reset">los2119@columbia.edu</a>
+              </p>
+              <p>
+                <i class="fas fa-envelope me-3"></i>
+                <a href="mailto:lilyoforiwaas@gmail.com" class="text-reset">lilyoforiwaas@gmail.com</a>
+              </p>
             </div>
             <!-- Grid column -->
           </div>

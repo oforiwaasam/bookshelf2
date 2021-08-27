@@ -9,6 +9,14 @@
   h1, h2, h3, h4, h5, h6 {
     color: #444444;
   }
+
+  .media {
+    /* display: flex; */
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    min-height: 10vh;
+  }
   
   .content-section {
     background: #ffffff;
@@ -23,7 +31,7 @@
   }
   
   a.article-title:hover {
-    color: #428bca;
+    color: #e99e65;
     text-decoration: none;
   }
   
