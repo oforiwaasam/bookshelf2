@@ -7,6 +7,7 @@ from wtforms import StringField, PasswordField, SubmitField, BooleanField
 from wtforms.validators import DataRequired, Length, Email, EqualTo, ValidationError
 
 # Form for registering to an account
+# username, email, password, confirm_password and submit are form attributes
 class SignupForm(FlaskForm):
     username = StringField('Username', validators=[DataRequired(), Length(min=2, max=20)])
     email = StringField('Email', validators=[DataRequired(), Email(message='Enter a valid email.')])

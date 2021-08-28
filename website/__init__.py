@@ -17,7 +17,7 @@ def create_app():
     # change is about to be made in the database
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False 
 
-    # Initialize plugins
+    # Initialize plugins with our application
     db.init_app(app)
     login_manager.init_app(app)
 

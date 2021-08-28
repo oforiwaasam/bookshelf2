@@ -22,10 +22,11 @@ def login():
     # creating an instance of login form
     form = LoginForm()
     if form.validate_on_submit(): # checks if entries are valid
+        # Query user here
         logged_user = User.query.filter_by(username=form.username.data).first()
 
         if logged_user and logged_user.check_password(password=form.password.data):
-            login_user(logged_user)
+            login_user(logged_user, remember=form.remember.data)
             flash("You've been successfully logged in", 'success')
             next_page = request.args.get('next')
             return redirect(next_page or url_for('auth.profile'))
@@ -48,17 +49,7 @@ def signup():
     form = SignupForm()
   
     if form.validate_on_submit(): # checks if entries are valid
-            # Check database if username is already in use
-            # existing_user = User.query.filter_by(username=form.username.data).first()
-            # if existing_user is not None:
-            #     flash(f'Username {existing_user.username} is already taken', 'danger')
-            #     return render_template('signup.html', title='Register', form=form)
-
-            # # Check database if email is already in use
-            # existing_user = User.query.filter_by(email=form.email.data).first()
-            # if existing_user is not None:
-            #     flash(f'Email {existing_user.email} is already taken', 'danger')
-            #     return render_template('signup.html', title='Register', form=form)
+        # Check database if username and email are already in use
 
         exist_username = User.query.filter_by(username=form.username.data).first()
         exist_email = User.query.filter_by(email=form.email.data).first()
@@ -120,8 +111,8 @@ def profile():
   #### Return a rendered profile.html file
   return render_template("profile.html", form=form, user=current_user, image_file=image_file)
 
-
-# telling Flask how we load a user
+# additional helper function to load our individual user when trying to access protected routes
+# telling Flask how to retrieve user using their id
 @login_manager.user_loader
 def load_user(id):
     """Check if user is logged-in upon page load."""
@@ -129,6 +120,7 @@ def load_user(id):
         return User.query.get(int(id)) # get will look for the primary key
     return None
 
+# for catching authorization issues, calls unauthorized route anytime there are authorization issues
 @login_manager.unauthorized_handler
 def unauthorized():
     """Redirect unauthorized users to Login page."""

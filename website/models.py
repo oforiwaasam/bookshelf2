@@ -32,7 +32,7 @@ class User(db.Model, UserMixin):
     password = db.Column(db.String(200), nullable=False)
     image_file = db.Column(db.String(20), nullable=False, default='avatar.png')
     account_date = joined_at = db.Column(db.DateTime(), index=True, default=datetime.utcnow)
-    last_login = db.Column(db.DateTime(timezone=True), index=False, unique=False)
+    last_login = db.Column(db.DateTime(), index=False, default=datetime.utcnow)
     # notes all of the notes that a user has created
     notes = db.relationship('Note') # Note here is the name of Note object created below
 
