@@ -31,8 +31,8 @@ class User(db.Model, UserMixin):
     # password can store 200 characters because of hashing
     password = db.Column(db.String(200), nullable=False)
     image_file = db.Column(db.String(20), nullable=False, default='avatar.png')
-    account_date = db.Column(db.DateTime(timezone=True), index=False, unique=False, nullable=False)
-    last_login = db.Column(db.DateTime(timezone=True), index=False, unique=False, nullable=False)
+    account_date = joined_at = db.Column(db.DateTime(), index=True, default=datetime.utcnow)
+    last_login = db.Column(db.DateTime(timezone=True), index=False, unique=False)
     # notes all of the notes that a user has created
     notes = db.relationship('Note') # Note here is the name of Note object created below
 
