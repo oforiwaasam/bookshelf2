@@ -41,7 +41,7 @@
         <!-- Left links -->
         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
           <li class="nav-item">
-            <a class="nav-link" href="#">About</a>
+            <a class="nav-link" href="{{ url_for('auth.books') }}">Books</a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="{{ url_for('main.logout') }}">Logout</a>
@@ -72,10 +72,7 @@
         </a>
         <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdownMenuLink">
           <li>
-            <a class="dropdown-item" href="#">My profile</a>
-          </li>
-          <li>
-            <a class="dropdown-item" href="#">Settings</a>
+            <a class="dropdown-item" href="{{ url_for('auth.profile') }}">My profile</a>
           </li>
           <li>
             <a class="dropdown-item" href="{{ url_for('main.logout') }}">Logout</a>
@@ -264,7 +261,7 @@
             </p>
             <p>
               <i class="fas fa-envelope me-3"></i>
-              <a href="mailto:lilyoforiwaas@gmail.com">lilyoforiwaas@gmail.com</a>
+              <a href="mailto:lilyoforiwaas@gmail.com" class="text-reset">lilyoforiwaas@gmail.com</a>
             </p>
           </div>
           <!-- Grid column -->

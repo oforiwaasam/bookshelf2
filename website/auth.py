@@ -2,10 +2,12 @@ import os
 import secrets
 from PIL import Image
 from flask import Blueprint, render_template, request, url_for, flash, redirect
-from flask_login import current_user, login_required, login_user, logout_user 
+from flask_login import current_user, login_required, login_user 
 from . import login_manager
 from .models import User, db
 from .forms import LoginForm, SignupForm, updateProfileForm
+from bestsellers import *
+from book_apis import *
 
 auth = Blueprint('auth', __name__)
 
@@ -110,6 +112,75 @@ def profile():
   image_file = url_for('static', filename='img/' + current_user.image_file)
   #### Return a rendered profile.html file
   return render_template("profile.html", form=form, user=current_user, image_file=image_file)
+
+class Book:
+    def __init__(self):
+        self.key = ''
+        self.other_books = {}
+        self.home_search = ''
+        self.book_stack = {"Recent":{},"Selected":{},"Favorite":{}}
+        #self.image = icons[0][1]
+
+book = Book()
+
+@auth.route('/books', methods=['GET', 'POST'])
+def books():
+    image_file = url_for('static', filename='img/' + current_user.image_file)
+    return render_template("books.html", user=current_user, image_file=image_file)
+
+# # helper fun for book_page
+# def lookforbook(other_books, name):
+#     if(isinstance(other_books, dict)):
+#         for key,value in other_books.items():
+#             if(name in key ):
+#                 return key, value
+#     else:
+#         for elem in other_books:
+# #             print(elem)
+#             for key,value in other_books.items():
+#                 if(name in key ):
+#                     return key, value
+#     return None, [None,None,None,None] #in case it does not work for now -> make exception later on
+
+# @auth.route("/book_page/<path:key>", methods=['GET','POST'])
+# def book_page(key):
+#     cover, book_data = lookforbook(book.other_books,key)
+#     # [listed_price,lowest_ebook,lowest_used,lowest_new,lowest_rental]
+#     if cover is not None and book_data is not None:
+#         prices = get_data(book_data[3])
+#         if(cover!=None and (cover not in book.book_stack["Selected"].keys())):
+#             print("COVERCOVERCOVER", cover)
+#             book.book_stack["Selected"].update({cover:book_data})
+#         if(request.method=='POST'):
+#             if(cover!=None and (cover not in book.book_stack["Favorite"].keys())):
+#                 book.book_stack["Favorite"].update({cover:book_data})
+#         if prices==None:
+#             return render_template('book_page.html', book_title=book_data[0], author=book_data[1], web=book_data[2], cover=cover, recs = book.other_books)
+
+#         return render_template('book_page.html', book_title=book_data[0], author=book_data[1], web=book_data[2], cover=cover, recs = book.other_books, prices=prices)
+#     return render_template('book_page.html', book_title = "No book information found.", recs={})
+
+@auth.route("/search_best_seller/<string:category>", methods=['GET', 'POST'])
+def search_best_seller(category):
+#     print(category)
+    book.other_books = select_category(category)
+    book.book_stack["Recent"] = book.other_books
+        
+    return render_template('search.html',button="Books", books=book.other_books)
+
+@auth.route("/bestsellers", methods=['GET', 'POST'])
+def bestsellers():
+    print("search_open_ID")
+    if request.method=='POST':
+        book.key = request.form.get("q")
+        book.other_books = ol_work_id(book.key)
+        if(len(book.other_books.keys())==0):
+            flash("Sorry No Books",'error')
+        book.book_stack["Recent"] = book.other_books
+        return render_template('bestsellers.html', books=book.other_books)
+        
+    return render_template('bestsellers.html', books={})
+
 
 # additional helper function to load our individual user when trying to access protected routes
 # telling Flask how to retrieve user using their id
