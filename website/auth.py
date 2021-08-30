@@ -124,9 +124,30 @@ class Book:
 book = Book()
 
 @auth.route('/books', methods=['GET', 'POST'])
+@login_required
 def books():
-    image_file = url_for('static', filename='img/' + current_user.image_file)
-    return render_template("books.html", user=current_user, image_file=image_file)
+    book.other_books = select_category("Hardcover Fiction")
+    if(len(book.other_books.keys())==0):
+        flash("Sorry No Books",'error')
+    book.book_stack["Recent"] = book.other_books
+    if request.method=='POST':
+        book.key = request.form.get("q")
+        # if log_manage.is_logged_in():
+            # username = log_manage.get_username()
+            # for database
+            # update_search_history(username, 'Book', book.key)
+
+        book.other_books = ol_book_names(book.key)
+        if(len(book.other_books.keys())==0):
+            flash("Sorry No Books",'error')
+        book.book_stack["Recent"] = book.other_books
+#         book.name = "Book1"
+#         book.other_books = {"Book1":["book_title", "authors_list", "cover_url", "url"], "Book2":["book_title", "authors_list", "cover_url", "url"], "Book3":["book_title", "authors_list", "cover_url", "url"],"Book32":["book_title", "authors_list", "cover_url", "url"]}
+        return render_template('books.html',button="Book", books=book.other_books)
+    image_file = url_for('static', filename='img/' + current_user.image_file)    
+    return render_template('books.html',button="Book", books=book.other_books, user=current_user, image_file=image_file)
+    
+    
 
 # # helper fun for book_page
 # def lookforbook(other_books, name):
@@ -161,16 +182,17 @@ def books():
 #     return render_template('book_page.html', book_title = "No book information found.", recs={})
 
 @auth.route("/search_best_seller/<string:category>", methods=['GET', 'POST'])
+@login_required
 def search_best_seller(category):
 #     print(category)
     book.other_books = select_category(category)
     book.book_stack["Recent"] = book.other_books
         
-    return render_template('search.html',button="Books", books=book.other_books)
+    return render_template('search.html', button="Books", books=book.other_books)
 
 @auth.route("/bestsellers", methods=['GET', 'POST'])
 def bestsellers():
-    print("search_open_ID")
+    # print("search_open_ID")
     if request.method=='POST':
         book.key = request.form.get("q")
         book.other_books = ol_work_id(book.key)
