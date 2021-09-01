@@ -161,40 +161,41 @@ def search():
         return render_template('bestsellers.html', button="Book", books=book.other_books)
     image_file = url_for('static', filename='img/' + current_user.image_file)    
     return render_template('bestsellers.html', button="Book", books=book.other_books, user=current_user, image_file=image_file)
-    
-    
+        
 
-# # helper fun for book_page
-# def lookforbook(other_books, name):
-#     if(isinstance(other_books, dict)):
-#         for key,value in other_books.items():
-#             if(name in key ):
-#                 return key, value
-#     else:
-#         for elem in other_books:
-# #             print(elem)
-#             for key,value in other_books.items():
-#                 if(name in key ):
-#                     return key, value
-#     return None, [None,None,None,None] #in case it does not work for now -> make exception later on
+# helper fun for book_page
+def lookforbook(other_books, name):
+    if(isinstance(other_books, dict)):
+        for key,value in other_books.items():
+            if (name in key):
+                return key, value
+    else:
+        for elem in other_books:
+#             print(elem)
+            for key,value in other_books.items():
+                if (name in key ):
+                    return key, value
+    return None, [None,None,None,None] #in case it does not work for now -> make exception later on
 
-# @auth.route("/book_page/<path:key>", methods=['GET','POST'])
-# def book_page(key):
-#     cover, book_data = lookforbook(book.other_books,key)
-#     # [listed_price,lowest_ebook,lowest_used,lowest_new,lowest_rental]
-#     if cover is not None and book_data is not None:
-#         prices = get_data(book_data[3])
-#         if(cover!=None and (cover not in book.book_stack["Selected"].keys())):
-#             print("COVERCOVERCOVER", cover)
-#             book.book_stack["Selected"].update({cover:book_data})
-#         if(request.method=='POST'):
-#             if(cover!=None and (cover not in book.book_stack["Favorite"].keys())):
-#                 book.book_stack["Favorite"].update({cover:book_data})
-#         if prices==None:
-#             return render_template('book_page.html', book_title=book_data[0], author=book_data[1], web=book_data[2], cover=cover, recs = book.other_books)
 
-#         return render_template('book_page.html', book_title=book_data[0], author=book_data[1], web=book_data[2], cover=cover, recs = book.other_books, prices=prices)
-#     return render_template('book_page.html', book_title = "No book information found.", recs={})
+@auth.route("/book_page/<path:key>", methods=['GET','POST'])
+def book_page(key):
+    cover, book_data = lookforbook(book.other_books,key)
+    image_file = url_for('static', filename='img/' + current_user.image_file)
+    if cover is not None and book_data is not None:
+        #prices = get_data(book_data[3])
+        prices = None
+        if(cover!=None and (cover not in book.book_stack["Selected"].keys())):
+            print("COVERCOVERCOVER", cover)
+            book.book_stack["Selected"].update({cover:book_data})
+        if(request.method=='POST'):
+            if(cover!=None and (cover not in book.book_stack["Favorite"].keys())):
+                book.book_stack["Favorite"].update({cover:book_data})
+        if prices==None:
+            return render_template('book_page.html', book_title=book_data[0], author=book_data[1], web=book_data[2], cover=cover, recs = book.other_books, image_file=image_file)
+
+        return render_template('book_page.html', book_title=book_data[0], author=book_data[1], web=book_data[2], cover=cover, recs = book.other_books, prices=prices, image_file=image_file)
+    return render_template('book_page.html', book_title = "No book information found.", recs={}, image_file=image_file)
 
 # takes you to landing page with specific bestseller category books listed (bestseller.html)
 @auth.route("/search_best_seller/<string:category>", methods=['GET', 'POST'])

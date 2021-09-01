@@ -1,0 +1,60 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    text-decoration: none;
+  /*   font-size: 35px; */
+  }
+
+  /* GENERAL BOOK PAGE */
+.general_page{
+    margin-top:10%;
+    text-align:center;
+    position:center;
+    
+}
+.page_con{
+  margin: auto;
+  width: 70%;
+  border: 3px solid green;
+  padding: 50px;
+/*   text-align:center; */
+/*     position:absolute;
+    width: 400px;
+    height: 100px;
+    background-color: pink;
+    color: red;
+    left: 40%; */
+/*     right:50%; */
+}
+.page_content{
+/*   position:center; */
+  margin: auto;
+  width: 15%;
+  border: 3px solid green;
+  padding: 30px;
+  float: left;
+/*   margin-left:20%; */
+/*   float: left;
+  border-radius: 5px;
+  height:300px;  */
+/*   width:200px;  */
+/*   margin-top:2%;
+  text-align:center; */
+}
+.other_books{
+/*     margin-top:10%; */
+    text-align:center;
+    margin-left:6%;
+}
+
+
+
+  footer a {
+    color: #3498db;
+    text-decoration: none;
+  }
+    
+  footer a:hover {
+    text-decoration: underline;
+  }

@@ -73,11 +73,11 @@
    background-color:green;
 } */
 
-  footer a {
-    color: #3498db;
-    text-decoration: none;
-  }
+footer a {
+  color: #3498db;
+  text-decoration: none;
+}
   
-  footer a:hover {
-    text-decoration: underline;
-  }
+footer a:hover {
+  text-decoration: underline;
+}

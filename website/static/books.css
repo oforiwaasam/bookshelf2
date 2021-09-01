@@ -5,7 +5,57 @@
     text-decoration: none;
   /*   font-size: 35px; */
   }
+
+  /* Default height for small devices */
+  #intro-example {
+    height: 400px;
+    background-image: url('./img/mlbooks.jpg');
+  }
+
+  .books{
+    margin-top: 5%;
+    text-align: center;  
+  }
   
+  /* Slideshow container */
+.slide_show_container {
+  /*   position: absolute; */
+    max-width: 1000px;
+    position: relative;
+    margin: auto;
+  /*   overflow: hidden; */
+  /*   white-space:nowrap; */
+  }
+  
+  
+  /* .slide_fade {
+    display: none;
+    text-align: center;
+  }
+   */
+  
+  .right {
+    float: right;
+    background-color: #C5CBE3;
+    color: #896363;
+    top: 50%;
+    width: auto;
+    padding: 16px;
+    border-radius: 0 3px 3px 0;
+    margin-top: 10%;
+  }
+  
+  .left {
+    float: left;
+    background-color: #C5CBE3;
+    color: #896363;
+    top: 50%;
+    width: auto;
+    padding: 16px;
+    border-radius: 0 3px 3px 0;
+    margin-top: 10%;
+  }
+    
   footer a {
     color: #3498db;
     text-decoration: none;

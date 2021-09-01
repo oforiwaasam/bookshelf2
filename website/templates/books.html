@@ -17,131 +17,125 @@
     <link rel="stylesheet" href="{{ url_for('static', filename = 'books.css') }}" />
 </head>
 <body>
+  <header>
     <!-- Navbar -->
     <nav class="navbar navbar-expand-lg navbar-light bg-light"> 
-        <!-- Container wrapper -->
-        <div class="container-fluid">
-          <!-- Toggle button -->
-          <button class="navbar-toggler" type="button" data-mdb-toggle="collapse" data-mdb-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-            <i class="fas fa-bars"></i>
-          </button>
-      
-          <!-- Collapsible wrapper -->
-          <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <!-- Navbar brand -->
-            <a class="navbar-brand" href="{{ url_for('main.index') }}">BooksHub</a>
-            <!-- Left links -->
-            <div class="drop-down">
-              <button class="drop-down-button">{{button}}</button>
-              <div class="dcontent">
-              <ul>
-                  <a href="/search"> <button class="book_button">Books</button> </a>
-                  <a href="/search_author"> <button class="book_button">Author</button> </a>
-                  <a href="/search_ISBN"> <button class="book_button">ISBN Number</button> </a>
-                  <a href="/search_topics"> <button class="book_button">Topics</button> </a>
-<!--                     <a href="/search_open_ID"> <button class="book_button">ID</button> </a> -->
-
-              </ul>
+      <!-- Container wrapper -->
+      <div class="container-fluid">
+        <!-- Toggle button -->
+        <button class="navbar-toggler" type="button" data-mdb-toggle="collapse" data-mdb-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <i class="fas fa-bars"></i>
+        </button>
+    
+        <!-- Collapsible wrapper -->
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <!-- Navbar brand -->
+          <a class="navbar-brand" href="{{ url_for('main.index') }}">BooksHub</a>
+          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            <li class="nav-item">
+              <a class="nav-link" href="{{ url_for('auth.books') }}">Books</a>
+            </li>
+            <li class="nav-item">
+              <div class="dropdown">
+                <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-mdb-toggle="dropdown" aria-expanded="false">
+                  {{button}}
+                </button>
+                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                  <li><a class="dropdown-item" href="/search">Books</a></li>
+                  <li><a class="dropdown-item" href="/search_author">Author</a></li>
+                  <li><a class="dropdown-item" href="/search_ISBN">ISBN Number</a></li>
+                  <li><a class="dropdown-item" href="/search_topics">Topics</a></li>
+                </ul>
               </div>
-
-          </div>      
-            <!-- Search form -->
-            <form class="d-flex input-group w-auto">
-                <input
-                  type="search"
-                  class="form-control rounded"
-                  placeholder="Search"
-                  aria-label="Search"
-                  aria-describedby="search-addon"
-                />
+            </li>
+            <li>
+              <!-- Search form -->
+              <form class="d-flex input-group w-auto">
+                <input type="search" class="form-control rounded" placeholder="Search" aria-label="Search" aria-describedby="search-addon"/>
                 <span class="input-group-text border-0" id="search-addon">
                   <i class="fas fa-search"></i>
                 </span>
               </form>
-            <!-- Left links -->
-          </div>
-          <!-- Collapsible wrapper -->
-      
-          <!-- Right elements -->
-          <div class="d-flex align-items-center">
-            <!-- Avatar -->
-            <a class="dropdown-toggle d-flex align-items-center" href="#" id="navbarDropdownMenuLink" role="button" data-mdb-toggle="dropdown" aria-expanded="false">
-              <img src="{{ image_file }}" class="rounded-circle" height="25" alt="" loading="lazy"/>
-            </a>
-            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdownMenuLink">
-              <li>
-                <a class="dropdown-item" href="{{ url_for('auth.profile') }}">My profile</a>
-              </li>
-              <li>
-                <a class="dropdown-item" href="{{ url_for('auth.books') }}">Books</a>
-              </li>
-              <li>
-                <a class="dropdown-item" href="{{ url_for('main.logout') }}">Logout</a>
-              </li>
-            </ul>
-          </div>
-          <!-- Right elements -->
+            </li>
+          </ul>
+          <!-- Left links -->
+          
         </div>
-        <!-- Container wrapper -->
+        <!-- Collapsible wrapper -->
+    
+        <!-- Right elements -->
+        <div class="d-flex align-items-center">
+          <!-- Avatar -->
+          <a class="dropdown-toggle d-flex align-items-center" href="#" id="navbarDropdownMenuLink" role="button" data-mdb-toggle="dropdown" aria-expanded="false">
+            <img src="{{ image_file }}" class="rounded-circle" height="25" alt="" loading="lazy"/>
+          </a>
+          <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdownMenuLink">
+            <li>
+              <a class="dropdown-item" href="{{ url_for('auth.profile') }}">My profile</a>
+            </li>
+            <li>
+              <a class="dropdown-item" href="{{ url_for('auth.books') }}">Books</a>
+            </li>
+            <li>
+              <a class="dropdown-item" href="{{ url_for('main.logout') }}">Logout</a>
+            </li>
+          </ul>
+        </div>
+        <!-- Right elements -->
+      </div>
+      <!-- Container wrapper -->
     </nav>
     <!-- Navbar -->
 
     <!-- Background image -->
-  <div
-  class="p-5 text-center bg-image"
-  style="
-    background-image: url('website/static/img/mlbooks.jpg');
-    height: 400px;
-    margin-top: 58px;
-  "
->
-  <div class="mask" style="background-color: rgba(0, 0, 0, 0.6);">
-    <div class="d-flex justify-content-center align-items-center h-100">
-      <div class="text-white">
-        <h1 class="mb-3">Heading</h1>
-        <h4 class="mb-3">Subheading</h4>
-        <a class="btn btn-outline-light btn-lg" href="#!" role="button"
-          >Call to action</a
-        >
+    <div id="intro-example" class="p-5 text-center bg-image">
+      <div class="mask" style="background-color: rgba(0, 0, 0, 0.6);">
+        <div class="d-flex justify-content-center align-items-center h-100">
+          <div class="text-white">
+            <h1 class="mb-3">Heading</h1>
+            <h4 class="mb-3">Subheading</h4>
+            <a class="btn btn-outline-light btn-lg" href="#!" role="button">Call to action</a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Background image -->
+  </header>
+    
+
+  <!-- TOP BOOKS -->
+  <div class="books">
+    <h2>Top Books</h2>
+    <div class="multi-carousel-inner">
+        
+        <div class="multi-carousel-item"> 
+            {% for key,value in top_books[0].items() %}
+                <a href="/book_page/{{key}}"><button class="book_cover_button"><img class="book_cover" src={{key}} alt={{key}}> </button></a>
+                
+            {% endfor %}
+        </div>
+        <div class="multi-carousel-item">
+            {% for key,value in top_books[1].items() %}
+                <a href="/book_page/{{key}}"><button class="book_cover_button"><img class="book_cover" src={{key}} alt={{key}}> </button></a>
+                
+            {% endfor %}
+      </div>
+      <div class="multi-carousel-item">
+            {% for key,value in top_books[2].items() %}
+                <a href="/book_page/{{key}}"><button class="book_cover_button"><img class="book_cover" src={{key}} alt={{key}}> </button></a>
+                
+            {% endfor %}
       </div>
     </div>
   </div>
-</div>
-<!-- Background image -->
 
-<!-- TOP BOOKS -->
-<div class="books">
-  <h3 style="color:black">Top Books</h3>
-  <div class="slide_show_container">
-      <button class= "left" onClick="plusSlides(-1)">&#10094;</button>
-      <button class= "right" onClick="plusSlides(1)">&#10095;</button>
-      <div class="slide_fade"> 
-          {% for key,value in top_books[0].items() %}
-              <a href="/book_page/{{key}}"><button class="book_cover_button"><img class="book_cover" src={{key}} alt={{key}}> </button></a>
-              
-          {% endfor %}
-      </div>
-      <div class="slide_fade">
-          {% for key,value in top_books[1].items() %}
-              <a href="/book_page/{{key}}"><button class="book_cover_button"><img class="book_cover" src={{key}} alt={{key}}> </button></a>
-              
-          {% endfor %}
-     </div>
-     <div class="slide_fade">
-          {% for key,value in top_books[2].items() %}
-              <a href="/book_page/{{key}}"><button class="book_cover_button"><img class="book_cover" src={{key}} alt={{key}}> </button></a>
-              
-          {% endfor %}
-     </div>
-  </div>
-  </div>
     <!-- Footer -->
   <footer class="text-center text-lg-start bg-light text-muted">
     <!-- Section: Social media -->
     <section class="d-flex justify-content-center justify-content-lg-between p-4 border-bottom">
       <!-- Left -->
       <div class="me-5 d-none d-lg-block">
-        <span>Get connected with us on social networks:</span>
+        <span>Connect with me on social media:</span>
       </div>
       <!-- Left -->
 
