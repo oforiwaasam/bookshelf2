@@ -22,7 +22,7 @@ class LoginForm(FlaskForm):
     remember = BooleanField('Remember Me')
     submit = SubmitField('Login')
 
-class updateProfileForm(FlaskForm):
+class UpdateProfileForm(FlaskForm):
     username = StringField('Username', validators=[DataRequired(), Length(min=2, max=20)])
     email = StringField('Email', validators=[DataRequired(), Email(message='Enter a valid email.')])
     picture = FileField('Update Profile Picture', validators=[FileAllowed(['jpg', 'png', 'jpeg'])])
@@ -40,3 +40,7 @@ class updateProfileForm(FlaskForm):
             user = User.query.filter_by(email=email.data).first()
             if user:
                 raise ValidationError('That email is taken. Please choose another one')
+
+class SearchForm(FlaskForm):
+    entry = StringField('Search for a book', validators=[DataRequired(), Length(min=2, max=100)])
+    submit = SubmitField('Search')

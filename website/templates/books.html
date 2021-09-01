@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Books page</title>
+    <title>Profile page</title>
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.2/css/all.css" />
     <!-- Google Fonts Roboto -->
@@ -31,6 +31,20 @@
             <!-- Navbar brand -->
             <a class="navbar-brand" href="{{ url_for('main.index') }}">BooksHub</a>
             <!-- Left links -->
+            <div class="drop-down">
+              <button class="drop-down-button">{{button}}</button>
+              <div class="dcontent">
+              <ul>
+                  <a href="/search"> <button class="book_button">Books</button> </a>
+                  <a href="/search_author"> <button class="book_button">Author</button> </a>
+                  <a href="/search_ISBN"> <button class="book_button">ISBN Number</button> </a>
+                  <a href="/search_topics"> <button class="book_button">Topics</button> </a>
+<!--                     <a href="/search_open_ID"> <button class="book_button">ID</button> </a> -->
+
+              </ul>
+              </div>
+
+          </div>      
             <!-- Search form -->
             <form class="d-flex input-group w-auto">
                 <input
@@ -71,37 +85,60 @@
         <!-- Container wrapper -->
     </nav>
     <!-- Navbar -->
-    
 
-    <!-- Get all messages that have been flashed with their categories -->
-    {% with messages = get_flashed_messages(with_categories=true) %}
-    {% if messages %}
-        {% for category, message in messages %}
-            <div class="alert alert-{{ category }} alert-dismissible" role="alert">
-                {{ message }}
-                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-            </div>
-        {% endfor %}
-    {% endif %}
-    {% endwith %}
-    
-    
-    <div class=container-fluid>
-        <div class="="book-collection>
-            {% for key, value in books.items() %}
-                <a href="/book_page/{{key}}"><button class="book_cover_button"><img class="book_cover" src={{key}} alt={{key}}> </button></a>
-                
-        {% endfor %}
-        </div>
-        
-
+    <!-- Background image -->
+  <div
+  class="p-5 text-center bg-image"
+  style="
+    background-image: url('website/static/img/mlbooks.jpg');
+    height: 400px;
+    margin-top: 58px;
+  "
+>
+  <div class="mask" style="background-color: rgba(0, 0, 0, 0.6);">
+    <div class="d-flex justify-content-center align-items-center h-100">
+      <div class="text-white">
+        <h1 class="mb-3">Heading</h1>
+        <h4 class="mb-3">Subheading</h4>
+        <a class="btn btn-outline-light btn-lg" href="#!" role="button"
+          >Call to action</a
+        >
+      </div>
     </div>
-  <!-- Footer -->
+  </div>
+</div>
+<!-- Background image -->
+
+<!-- TOP BOOKS -->
+<div class="books">
+  <h3 style="color:black">Top Books</h3>
+  <div class="slide_show_container">
+      <button class= "left" onClick="plusSlides(-1)">&#10094;</button>
+      <button class= "right" onClick="plusSlides(1)">&#10095;</button>
+      <div class="slide_fade"> 
+          {% for key,value in top_books[0].items() %}
+              <a href="/book_page/{{key}}"><button class="book_cover_button"><img class="book_cover" src={{key}} alt={{key}}> </button></a>
+              
+          {% endfor %}
+      </div>
+      <div class="slide_fade">
+          {% for key,value in top_books[1].items() %}
+              <a href="/book_page/{{key}}"><button class="book_cover_button"><img class="book_cover" src={{key}} alt={{key}}> </button></a>
+              
+          {% endfor %}
+     </div>
+     <div class="slide_fade">
+          {% for key,value in top_books[2].items() %}
+              <a href="/book_page/{{key}}"><button class="book_cover_button"><img class="book_cover" src={{key}} alt={{key}}> </button></a>
+              
+          {% endfor %}
+     </div>
+  </div>
+  </div>
+    <!-- Footer -->
   <footer class="text-center text-lg-start bg-light text-muted">
     <!-- Section: Social media -->
-    <section
-      class="d-flex justify-content-center justify-content-lg-between p-4 border-bottom"
-    >
+    <section class="d-flex justify-content-center justify-content-lg-between p-4 border-bottom">
       <!-- Left -->
       <div class="me-5 d-none d-lg-block">
         <span>Get connected with us on social networks:</span>

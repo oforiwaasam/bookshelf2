@@ -5,7 +5,7 @@ from flask import Blueprint, render_template, request, url_for, flash, redirect
 from flask_login import current_user, login_required, login_user 
 from . import login_manager
 from .models import User, db
-from .forms import LoginForm, SignupForm, updateProfileForm
+from .forms import LoginForm, SignupForm, UpdateProfileForm, SearchForm
 from bestsellers import *
 from book_apis import *
 
@@ -92,7 +92,8 @@ def save_picture(form_picture):
 @auth.route('/profile', methods=['GET', 'POST'])
 @login_required
 def profile():
-  form = updateProfileForm()
+  # initialize profile form
+  form = UpdateProfileForm()
   
   if form.validate_on_submit():
     if form.picture.data:
@@ -123,15 +124,31 @@ class Book:
 
 book = Book()
 
+# books landing page for user when they log in
 @auth.route('/books', methods=['GET', 'POST'])
 @login_required
 def books():
-    book.other_books = select_category("Hardcover Fiction")
-    if(len(book.other_books.keys())==0):
-        flash("Sorry No Books",'error')
+    top_books, book.other_books = homepage_bestsellers()
     book.book_stack["Recent"] = book.other_books
+#     book.other_books = top_books
     if request.method=='POST':
         book.key = request.form.get("q")
+        book.other_books = ol_book_names(book.key)
+        if(len(book.other_books.keys())==0):
+            flash("Sorry No Books",'error')
+        book.book_stack["Recent"] = book.other_books
+        return render_template('books.html',button="Books", books=book.other_books, top_books=top_books)
+    image_file = url_for('static', filename='img/' + current_user.image_file)
+    return render_template('books.html',top_books=top_books, image_file=image_file)
+
+# for searching up books by name
+@auth.route('/search', methods=['GET', 'POST'])
+@login_required
+def search():
+    # initialize search form
+    form = SearchForm()
+    if form.validate_on_submit:
+        book.key = form.entry.data
         # if log_manage.is_logged_in():
             # username = log_manage.get_username()
             # for database
@@ -141,11 +158,9 @@ def books():
         if(len(book.other_books.keys())==0):
             flash("Sorry No Books",'error')
         book.book_stack["Recent"] = book.other_books
-#         book.name = "Book1"
-#         book.other_books = {"Book1":["book_title", "authors_list", "cover_url", "url"], "Book2":["book_title", "authors_list", "cover_url", "url"], "Book3":["book_title", "authors_list", "cover_url", "url"],"Book32":["book_title", "authors_list", "cover_url", "url"]}
-        return render_template('books.html',button="Book", books=book.other_books)
+        return render_template('bestsellers.html', button="Book", books=book.other_books)
     image_file = url_for('static', filename='img/' + current_user.image_file)    
-    return render_template('books.html',button="Book", books=book.other_books, user=current_user, image_file=image_file)
+    return render_template('bestsellers.html', button="Book", books=book.other_books, user=current_user, image_file=image_file)
     
     
 
@@ -181,6 +196,7 @@ def books():
 #         return render_template('book_page.html', book_title=book_data[0], author=book_data[1], web=book_data[2], cover=cover, recs = book.other_books, prices=prices)
 #     return render_template('book_page.html', book_title = "No book information found.", recs={})
 
+# takes you to landing page with specific bestseller category books listed (bestseller.html)
 @auth.route("/search_best_seller/<string:category>", methods=['GET', 'POST'])
 @login_required
 def search_best_seller(category):
@@ -190,18 +206,84 @@ def search_best_seller(category):
     image_file = url_for('static', filename='img/' + current_user.image_file)
     return render_template('bestsellers.html', books=book.other_books, image_file=image_file)
 
-@auth.route("/bestsellers", methods=['GET', 'POST'])
-def bestsellers():
-    # print("search_open_ID")
-    if request.method=='POST':
+@auth.route("/search_author", methods=['GET', 'POST'])
+@login_required
+def search_author():
+    form = SearchForm()
+
+    if form.validate_on_submit:
         book.key = request.form.get("q")
-        book.other_books = ol_work_id(book.key)
+        
+        # if log_manage.is_logged_in():
+        #     username = log_manage.get_username()
+        #     update_search_history(username, 'Author', book.key)
+        
+        search = ol_authors(book.key)
+        if(search[0]==0):
+            print("IN HERE")
+            book.other_books = search[1]
+            if(len(book.other_books.keys())==0):
+                flash("Sorry No Books",'error')
+            book.book_stack["Recent"] = book.other_books
+#             print(book.other_books)
+            return render_template('search.html',button="Author", books=book.other_books)
+        else:
+            return render_template('search.html',button="Author", subtitle=f'Did you mean.. {search[1]}', books={})
+        
+    return render_template('search.html',button="Author", books={})
+
+@auth.route("/search_ISBN", methods=['GET', 'POST'])
+@login_required
+def search_ISBN():
+    # print("search_ISBN")
+    form = SearchForm()
+
+    if form.validate_on_submit:
+        book.key = request.form.get("q")
+        
+        # if log_manage.is_logged_in():
+        #     username = log_manage.get_username()
+        #     update_search_history(username, 'ISBN', book.key)
+        book.other_books = ol_isbn(book.key)
         if(len(book.other_books.keys())==0):
             flash("Sorry No Books",'error')
         book.book_stack["Recent"] = book.other_books
-        return render_template('bestsellers.html', books=book.other_books)
+        return render_template('search.html',button="ISBN", books=book.other_books)
+    return render_template('search.html',button="ISBN", books={})
+
+@auth.route("/search_topics", methods=['GET', 'POST'])
+@login_required
+def search_topics():
+    # print("search_topics")
+    form = SearchForm()
+    
+    if form.validate_on_submit:
+        book.key = request.form.get("q")
         
-    return render_template('bestsellers.html', books={})
+        # if log_manage.is_logged_in():
+        #     username = log_manage.get_username()
+        #     update_search_history(username, 'Topic', book.key)
+        
+        book.other_books = ol_subjects(book.key)
+        if(len(book.other_books.keys())==0):
+            flash("Sorry No Books",'error')
+        book.book_stack["Recent"] = book.other_books
+        return render_template('search.html', button="Topics", books=book.other_books)
+    return render_template('search.html', button="Topics", books={})
+
+
+
+# @auth.route("/bestsellers", methods=['GET', 'POST'])
+# def bestsellers():
+#     if request.method=='POST':
+#         book.key = request.form.get("q")
+#         book.other_books = ol_work_id(book.key)
+#         if(len(book.other_books.keys())==0):
+#             flash("Sorry No Books",'error')
+#         book.book_stack["Recent"] = book.other_books
+#         return render_template('bestsellers.html', books=book.other_books)
+        
+#     return render_template('bestsellers.html', books={})
 
 
 # additional helper function to load our individual user when trying to access protected routes

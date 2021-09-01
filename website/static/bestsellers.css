@@ -5,7 +5,74 @@
     text-decoration: none;
   /*   font-size: 35px; */
   }
-  
+
+  /* SEARCH PAGE */
+.top_search{
+    margin-top:8%;
+    margin-bottom:8%;
+/*     background-color: #C5CBE3; */
+}
+
+.dcontent{
+  display: none;
+  position: absolute;
+/*   margin-left: -47px; */
+  text-align:center;
+  right: 300px;
+  margin-top: 60px;
+/*   margin-top: 50px; */
+/*   background-color: #C5CBE3; */
+/*   background-color: #C1C2B4; */
+}
+.dcontent a{
+  color: black;
+  padding: 2px 16px;
+  text-decoration: none;
+  display: block;
+  background-color: #C5CBE3;
+
+}
+
+.drop-down:hover .dcontent {display: block;}
+
+.book_button{
+    border: 0px;   
+/*     width; 200px; */
+    background-color: #C5CBE3;
+
+}
+
+.book_cover_button{
+  margin-left:20px;
+  margin-bottom:20px;
+  background-color:#fff9f9;
+}
+
+.book-container{
+/*    margin-top:40%; */
+   float: left;
+}
+
+.book_cover{
+  float: left;
+  border-radius: 12px;
+  height:300px; 
+  width:200px; 
+
+
+}
+
+.book-collection{
+    margin-top:25%;
+    text-align:center;
+    position:center;
+}
+
+/* .book-container1111{
+   float: left;
+   background-color:green;
+} */
+
   footer a {
     color: #3498db;
     text-decoration: none;
