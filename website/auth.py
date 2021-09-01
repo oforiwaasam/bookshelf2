@@ -187,8 +187,8 @@ def search_best_seller(category):
 #     print(category)
     book.other_books = select_category(category)
     book.book_stack["Recent"] = book.other_books
-        
-    return render_template('search.html', button="Books", books=book.other_books)
+    image_file = url_for('static', filename='img/' + current_user.image_file)
+    return render_template('bestsellers.html', books=book.other_books, image_file=image_file)
 
 @auth.route("/bestsellers", methods=['GET', 'POST'])
 def bestsellers():
