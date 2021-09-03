@@ -170,11 +170,10 @@ def lookforbook(other_books, name):
             if (name in key):
                 return key, value
     else:
-        for elem in other_books:
-#             print(elem)
-            for key,value in other_books.items():
-                if (name in key ):
-                    return key, value
+        # for elem in other_books:
+        for key,value in other_books.items():
+            if (name in key ):
+                return key, value
     return None, [None,None,None,None] #in case it does not work for now -> make exception later on
 
 
