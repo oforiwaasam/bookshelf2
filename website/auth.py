@@ -137,9 +137,9 @@ def books():
         if(len(book.other_books.keys())==0):
             flash("Sorry No Books",'error')
         book.book_stack["Recent"] = book.other_books
-        return render_template('books.html',button="Books", books=book.other_books, top_books=top_books)
+        return render_template('search.html', button="Books", books=book.other_books, top_books=top_books)
     image_file = url_for('static', filename='img/' + current_user.image_file)
-    return render_template('books.html',top_books=top_books, image_file=image_file)
+    return render_template('books.html', top_books=top_books, image_file=image_file)
 
 # for searching up books by name
 @auth.route('/search', methods=['GET', 'POST'])
@@ -155,7 +155,7 @@ def search():
             # update_search_history(username, 'Book', book.key)
 
         book.other_books = ol_book_names(book.key)
-        if(len(book.other_books.keys())==0):
+        if (len(book.other_books.keys()) == 0):
             flash("Sorry No Books",'error')
         book.book_stack["Recent"] = book.other_books
         return render_template('bestsellers.html', button="Book", books=book.other_books)

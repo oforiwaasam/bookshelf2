@@ -50,11 +50,16 @@
             </li>
             <li>
               <!-- Search form -->
-              <form class="d-flex input-group w-auto">
-                <input type="search" class="form-control rounded" placeholder="Search" aria-label="Search" aria-describedby="search-addon"/>
-                <span class="input-group-text border-0" id="search-addon">
-                  <i class="fas fa-search"></i>
-                </span>
+              <form class="d-flex input-group w-auto" method="POST" action="/books">
+                <div class="input-group">
+                  <div class="form-outline">
+                    <input type="search" id="form1" class="form-control" />
+                    <label class="form-label" for="form1">Search</label>
+                  </div>
+                  <button type="button" class="btn btn-primary">
+                    <i class="fas fa-search"></i>
+                  </button>
+                </div>
               </form>
             </li>
           </ul>
