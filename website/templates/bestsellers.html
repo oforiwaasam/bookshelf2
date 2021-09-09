@@ -46,7 +46,7 @@
                     {{button}}
                   </button>
                   <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                    <li><a class="dropdown-item" href="/search">Books</a></li>
+                    <li><a class="dropdown-item" href="/search">Title</a></li>
                     <li><a class="dropdown-item" href="/search_author">Author</a></li>
                     <li><a class="dropdown-item" href="/search_ISBN">ISBN Number</a></li>
                     <li><a class="dropdown-item" href="/search_topics">Topics</a></li>
@@ -55,28 +55,11 @@
               </li>
                 <!-- Search form -->
                 <form class="d-flex input-group w-auto" method="POST" action="/bestsellers">
-                  <!-- <fieldset class="form-group">
-
-                    <div class="search-entry">-->
-                    <!-- prints the username label (text to help the user know where to enter their username) -->
-                    <!-- Took labels out and replaced them with placeholders -->
-                    <!-- {% if form.entry.errors %}
-                        {{ form.entry(class="field is-invalid") }}
-                        <div class="invalid-feedback">
-                            {% for error in form.entry.errors %}
-                                <span>{{ error }}</span>
-                            {% endfor %}
-                        </div>
-                    {% else %}
-                        {{ form.entry(class="form-control rounded", placeholder="Username") }}
-                    {% endif %}
-                    </div> -->
-                <!-- </fieldset>  -->
-                  <input type="search" class="form-control rounded" placeholder="Search" aria-label="Search" aria-describedby="search-addon"/>
-                  <input type="submit" name="form" value="Submit"/>
-                  <span class="input-group-text border-0" id="search-addon">
+                  <input type="search" name="q" class="form-control rounded" placeholder="Search" aria-label="Search" aria-describedby="search-addon"/>
+                  <input type="submit" name="form" class="btn btn-outline-primary" value="Submit"/>
+                  <!-- <span class="input-group-text border-0" id="search-addon">
                     <i class="fas fa-search"></i>
-                  </span>
+                  </span> -->
                 </form>
               </li>
             </ul>

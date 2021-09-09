@@ -130,6 +130,7 @@ book = Book()
 def books():
     top_books, book.other_books = homepage_bestsellers()
     book.book_stack["Recent"] = book.other_books
+    image_file = url_for('static', filename='img/' + current_user.image_file)
 #     book.other_books = top_books
     if request.method=='POST':
         book.key = request.form.get("q")
@@ -137,18 +138,22 @@ def books():
         if(len(book.other_books.keys())==0):
             flash("Sorry No Books",'error')
         book.book_stack["Recent"] = book.other_books
-        return render_template('search.html', button="Books", books=book.other_books, top_books=top_books)
-    image_file = url_for('static', filename='img/' + current_user.image_file)
+        return render_template('search.html', button="Books", books=book.other_books, top_books=top_books, image_file=image_file)
+    
     return render_template('books.html', top_books=top_books, image_file=image_file)
+
 
 # for searching up books by name
 @auth.route('/search', methods=['GET', 'POST'])
 @login_required
 def search():
-    # initialize search form
-    form = SearchForm()
-    if form.validate_on_submit:
-        book.key = form.entry.data
+    image_file = url_for('static', filename='img/' + current_user.image_file)
+    book.other_books = select_category("Hardcover Fiction")
+    if(len(book.other_books.keys())==0):
+        flash("Sorry No Books",'error')
+    book.book_stack["Recent"] = book.other_books
+    if request.method=='POST':
+        book.key = request.form.get("q")
         # if log_manage.is_logged_in():
             # username = log_manage.get_username()
             # for database
@@ -156,11 +161,11 @@ def search():
 
         book.other_books = ol_book_names(book.key)
         if (len(book.other_books.keys()) == 0):
-            flash("Sorry No Books",'error')
+            flash("Sorry No Books", 'error')
         book.book_stack["Recent"] = book.other_books
-        return render_template('bestsellers.html', button="Book", books=book.other_books)
-    image_file = url_for('static', filename='img/' + current_user.image_file)    
-    return render_template('bestsellers.html', button="Book", books=book.other_books, user=current_user, image_file=image_file)
+        return render_template('search.html', button="Book", books=book.other_books, user=current_user, image_file=image_file)
+        
+    return render_template('search.html', button="Book", books=book.other_books, user=current_user, image_file=image_file)
         
 
 # helper fun for book_page
@@ -196,6 +201,7 @@ def book_page(key):
         return render_template('book_page.html', book_title=book_data[0], author=book_data[1], web=book_data[2], cover=cover, recs = book.other_books, prices=prices, image_file=image_file)
     return render_template('book_page.html', book_title = "No book information found.", recs={}, image_file=image_file)
 
+
 # takes you to landing page with specific bestseller category books listed (bestseller.html)
 @auth.route("/search_best_seller/<string:category>", methods=['GET', 'POST'])
 @login_required
@@ -205,6 +211,7 @@ def search_best_seller(category):
     book.book_stack["Recent"] = book.other_books
     image_file = url_for('static', filename='img/' + current_user.image_file)
     return render_template('bestsellers.html', books=book.other_books, image_file=image_file)
+
 
 @auth.route("/search_author", methods=['GET', 'POST'])
 @login_required
@@ -273,17 +280,17 @@ def search_topics():
 
 
 
-# @auth.route("/bestsellers", methods=['GET', 'POST'])
-# def bestsellers():
-#     if request.method=='POST':
-#         book.key = request.form.get("q")
-#         book.other_books = ol_work_id(book.key)
-#         if(len(book.other_books.keys())==0):
-#             flash("Sorry No Books",'error')
-#         book.book_stack["Recent"] = book.other_books
-#         return render_template('bestsellers.html', books=book.other_books)
+@auth.route("/bestsellers", methods=['GET', 'POST'])
+def bestsellers():
+    if request.method=='POST':
+        book.key = request.form.get("q")
+        book.other_books = ol_work_id(book.key)
+        if(len(book.other_books.keys())==0):
+            flash("Sorry No Books",'error')
+        book.book_stack["Recent"] = book.other_books
+        return render_template('bestsellers.html', books=book.other_books)
         
-#     return render_template('bestsellers.html', books={})
+    return render_template('bestsellers.html', books={})
 
 
 # additional helper function to load our individual user when trying to access protected routes

@@ -14,7 +14,7 @@
     <!-- CSS only -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous"> 
     <!-- Custom styles -->
-    <link rel="stylesheet" href="{{ url_for('static', filename = 'books.css') }}" />
+    <link rel="stylesheet" href="{{ url_for('static', filename = 'search.css') }}" />
 </head>
 <body>
   <header>
@@ -34,26 +34,6 @@
           <ul class="navbar-nav me-auto mb-2 mb-lg-0">
             <li class="nav-item">
               <a class="nav-link" href="{{ url_for('auth.books') }}">Books</a>
-            </li>
-            <li class="nav-item">
-              <div class="dropdown">
-                <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-mdb-toggle="dropdown" aria-expanded="false">
-                  {{button}}
-                </button>
-                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                  <li><a class="dropdown-item" href="/search">Title</a></li>
-                  <li><a class="dropdown-item" href="/search_author">Author</a></li>
-                  <li><a class="dropdown-item" href="/search_ISBN">ISBN Number</a></li>
-                  <li><a class="dropdown-item" href="/search_topics">Topics</a></li>
-                </ul>
-              </div>
-            </li>
-            <li>
-              <!-- Search form -->
-              <form class="d-flex input-group w-auto" method="POST" action="/books">
-                <input type="search" name="q" class="form-control rounded" placeholder="Search" aria-label="Search" aria-describedby="search-addon"/>
-                <input type="submit" name="form" class="btn btn-outline-primary" value="Submit"/>
-              </form>
             </li>
           </ul>
           <!-- Left links -->
@@ -85,47 +65,55 @@
     </nav>
     <!-- Navbar -->
 
-    <!-- Background image -->
-    <div id="intro-example" class="p-5 text-center bg-image">
-      <div class="mask" style="background-color: rgba(0, 0, 0, 0.6);">
+    <!-- Get all messages that have been flashed with their categories -->
+    {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+        {% for category, message in messages %}
+            <div class="alert alert-{{ category }} alert-dismissible" role="alert">
+                {{ message }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        {% endfor %}
+    {% endif %}
+    {% endwith %}
+
+    <!-- Bigger search bar -->
+    <div class="p-5 text-center">
         <div class="d-flex justify-content-center align-items-center h-100">
-          <div class="text-white">
-            <h1 class="mb-3">Heading</h1>
-            <h4 class="mb-3">Subheading</h4>
-            <a class="btn btn-outline-light btn-lg" href="#!" role="button">Call to action</a>
-          </div>
+                        <div class="drop-down">
+                            <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-mdb-toggle="dropdown" aria-expanded="false">
+                                {{button}}
+                            </button>
+                            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                <li><a class="dropdown-item" href="/search">Title</a></li>
+                                <li><a class="dropdown-item" href="/search_author">Author</a></li>
+                                <li><a class="dropdown-item" href="/search_ISBN">ISBN Number</a></li>
+                                <li><a class="dropdown-item" href="/search_topics">Topics</a></li>
+                            </ul>
+            
+                        </div>         
+                        <form method="POST" class="d-flex input-group w-auto">
+                                
+                            <input type="search" name="q" class="form-control rounded" placeholder="Search" aria-label="Search" aria-describedby="search-addon"/>
+                            <input type="submit" name="form" class="btn btn-outline-primary" value="Submit"/>
+                                
+                      
+                        </form>
+                        <p>{{subtitle}}</p>
         </div>
-      </div>
     </div>
-    <!-- Background image -->
+    <!-- Bigger search bar -->
   </header>
     
 
-  <!-- TOP BOOKS -->
-  <div class="books">
-    <h2>Top Books</h2>
-    <div class="multi-carousel-inner">
-        
-        <div class="multi-carousel-item"> 
-            {% for key,value in top_books[0].items() %}
-                <a href="/book_page/{{key}}"><button class="book_cover_button"><img class="book_cover" src={{key}} alt={{key}}> </button></a>
-                
-            {% endfor %}
-        </div>
-        <div class="multi-carousel-item">
-            {% for key,value in top_books[1].items() %}
-                <a href="/book_page/{{key}}"><button class="book_cover_button"><img class="book_cover" src={{key}} alt={{key}}> </button></a>
-                
-            {% endfor %}
-      </div>
-      <div class="multi-carousel-item">
-            {% for key,value in top_books[2].items() %}
-                <a href="/book_page/{{key}}"><button class="book_cover_button"><img class="book_cover" src={{key}} alt={{key}}> </button></a>
-                
-            {% endfor %}
-      </div>
-    </div>
-  </div>
+  <div class=book_collection>
+    {% for key,value in books.items() %}
+<!--             <p>{{key.split('/')[-1].split('.')[0]}}</p> -->
+            <a href="/book_page/{{key}}"><button class="book_cover_button"><img class="book_cover" src={{key}} alt={{key}}> </button></a>
+            
+    {% endfor %}
+
+</div>
 
     <!-- Footer -->
   <footer class="text-center text-lg-start bg-light text-muted">
