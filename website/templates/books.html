@@ -85,6 +85,18 @@
     </nav>
     <!-- Navbar -->
 
+    <!-- Get all messages that have been flashed with their categories -->
+    {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+        {% for category, message in messages %}
+            <div class="alert alert-{{ category }} alert-dismissible" role="alert">
+                {{ message }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        {% endfor %}
+    {% endif %}
+    {% endwith %}
+
     <!-- Background image -->
     <div id="intro-example" class="p-5 text-center bg-image">
       <div class="mask" style="background-color: rgba(0, 0, 0, 0.6);">
