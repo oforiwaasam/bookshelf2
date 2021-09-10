@@ -152,6 +152,7 @@ def search():
     if(len(book.other_books.keys())==0):
         flash("Sorry No Books",'error')
     book.book_stack["Recent"] = book.other_books
+
     if request.method=='POST':
         book.key = request.form.get("q")
         # if log_manage.is_logged_in():
@@ -216,9 +217,9 @@ def search_best_seller(category):
 @auth.route("/search_author", methods=['GET', 'POST'])
 @login_required
 def search_author():
-    form = SearchForm()
-
-    if form.validate_on_submit:
+    image_file = url_for('static', filename='img/' + current_user.image_file)
+    
+    if request.method=='POST':
         book.key = request.form.get("q")
         
         # if log_manage.is_logged_in():
@@ -232,7 +233,6 @@ def search_author():
             if(len(book.other_books.keys())==0):
                 flash("Sorry No Books",'error')
             book.book_stack["Recent"] = book.other_books
-#             print(book.other_books)
             return render_template('search.html',button="Author", books=book.other_books)
         else:
             return render_template('search.html',button="Author", subtitle=f'Did you mean.. {search[1]}', books={})
