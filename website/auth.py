@@ -150,7 +150,7 @@ def search():
     image_file = url_for('static', filename='img/' + current_user.image_file)
     book.other_books = select_category("Hardcover Fiction")
     if(len(book.other_books.keys())==0):
-        flash("Sorry No Books",'error')
+        flash("Sorry No Books",'secondary')
     book.book_stack["Recent"] = book.other_books
 
     if request.method=='POST':
@@ -162,7 +162,7 @@ def search():
 
         book.other_books = ol_book_names(book.key)
         if (len(book.other_books.keys()) == 0):
-            flash("Sorry No Books", 'error')
+            flash("Sorry No Books", 'secondary')
         book.book_stack["Recent"] = book.other_books
         return render_template('search.html', button="Book", books=book.other_books, user=current_user, image_file=image_file)
         
@@ -218,7 +218,7 @@ def search_best_seller(category):
 @login_required
 def search_author():
     image_file = url_for('static', filename='img/' + current_user.image_file)
-    
+
     if request.method=='POST':
         book.key = request.form.get("q")
         
@@ -233,19 +233,18 @@ def search_author():
             if(len(book.other_books.keys())==0):
                 flash("Sorry No Books",'error')
             book.book_stack["Recent"] = book.other_books
-            return render_template('search.html',button="Author", books=book.other_books)
+            return render_template('search.html',button="Author", books=book.other_books, image_file=image_file)
         else:
-            return render_template('search.html',button="Author", subtitle=f'Did you mean.. {search[1]}', books={})
+            return render_template('search.html',button="Author", subtitle=f'Did you mean.. {search[1]}', books={}, image_file=image_file)
         
-    return render_template('search.html',button="Author", books={})
+    return render_template('search.html',button="Author", books={}, image_file=image_file)
 
 @auth.route("/search_ISBN", methods=['GET', 'POST'])
 @login_required
 def search_ISBN():
-    # print("search_ISBN")
-    form = SearchForm()
+    image_file = url_for('static', filename='img/' + current_user.image_file)
 
-    if form.validate_on_submit:
+    if request.method=='POST':
         book.key = request.form.get("q")
         
         # if log_manage.is_logged_in():
@@ -255,16 +254,15 @@ def search_ISBN():
         if(len(book.other_books.keys())==0):
             flash("Sorry No Books",'error')
         book.book_stack["Recent"] = book.other_books
-        return render_template('search.html',button="ISBN", books=book.other_books)
-    return render_template('search.html',button="ISBN", books={})
+        return render_template('search.html',button="ISBN", books=book.other_books, image_file=image_file)
+    return render_template('search.html',button="ISBN", books={}, image_file=image_file)
 
 @auth.route("/search_topics", methods=['GET', 'POST'])
 @login_required
 def search_topics():
-    # print("search_topics")
-    form = SearchForm()
+    image_file = url_for('static', filename='img/' + current_user.image_file)
     
-    if form.validate_on_submit:
+    if request.method=='POST':
         book.key = request.form.get("q")
         
         # if log_manage.is_logged_in():
@@ -275,8 +273,8 @@ def search_topics():
         if(len(book.other_books.keys())==0):
             flash("Sorry No Books",'error')
         book.book_stack["Recent"] = book.other_books
-        return render_template('search.html', button="Topics", books=book.other_books)
-    return render_template('search.html', button="Topics", books={})
+        return render_template('search.html', button="Topics", books=book.other_books, image_file=image_file)
+    return render_template('search.html', button="Topics", books={}, image_file=image_file)
 
 
 
