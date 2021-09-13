@@ -105,15 +105,16 @@
     <!-- Bigger search bar -->
   </header>
     
-
-  <div class=book_collection>
-    {% for key,value in books.items() %}
-<!--             <p>{{key.split('/')[-1].split('.')[0]}}</p> -->
-            <a href="/book_page/{{key}}"><button class="book_cover_button"><img class="book_cover" src={{key}} alt={{key}}> </button></a>
-            
-    {% endfor %}
-
-</div>
+  <div class="container-fluid">
+    <div class="book_collection">
+        {% for key,value in books.items() %}
+                <a href="/book_page/{{key}}"><button class="book_cover_button"><img class="book_cover" src={{key}} alt={{key}}></button></a>
+                
+        {% endfor %}
+    
+    </div>
+  </div>
+  
 
     <!-- Footer -->
   <footer class="text-center text-lg-start bg-light text-muted">

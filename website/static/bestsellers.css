@@ -8,8 +8,8 @@
 
   /* SEARCH PAGE */
 .top_search{
-    margin-top:8%;
-    margin-bottom:8%;
+  margin-top:8%;
+  margin-bottom:8%;
 /*     background-color: #C5CBE3; */
 }
 
@@ -35,22 +35,10 @@
 
 .drop-down:hover .dcontent {display: block;}
 
-.book_button{
-    border: 0px;   
-/*     width; 200px; */
-    background-color: #C5CBE3;
-
-}
-
 .book_cover_button{
   margin-left:20px;
   margin-bottom:20px;
   background-color:#fff9f9;
-}
-
-.book-container{
-/*    margin-top:40%; */
-   float: left;
 }
 
 .book_cover{
@@ -58,20 +46,13 @@
   border-radius: 12px;
   height:300px; 
   width:200px; 
-
-
 }
 
 .book-collection{
-    margin-top:25%;
-    text-align:center;
-    position:center;
+  margin-top: 5%;
+  text-align: center;
+  position: center;
 }
-
-/* .book-container1111{
-   float: left;
-   background-color:green;
-} */
 
 footer a {
   color: #3498db;

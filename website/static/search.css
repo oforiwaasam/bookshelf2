@@ -10,8 +10,21 @@
 
 .book_collection {
     margin-top: 5%;
-    text-align:center;
-    position:center;
+    text-align: center;
+    position: center;
+}
+
+.book_cover_button{
+    margin-left:20px;
+    margin-bottom:20px;
+    background-color:#fff9f9;
+  }
+  
+.book_cover{
+float: left;
+border-radius: 12px;
+height:300px; 
+width:200px; 
 }
     
 footer a {

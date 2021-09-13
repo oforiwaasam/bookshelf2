@@ -4,7 +4,7 @@
     box-sizing: border-box;
     text-decoration: none;
   /*   font-size: 35px; */
-  }
+}
 
   /* Default height for small devices */
   #intro-example {
@@ -12,10 +12,24 @@
     background-image: url('./img/mlbooks.jpg');
   }
 
-  .books{
-    margin-top: 5%;
-    text-align: center;  
-  }
+.books {
+  margin-top: 5%;
+  text-align: center;
+  position: center;
+}
+
+.book_cover_button{
+  margin-left: 20px;
+  margin-bottom: 20px;
+  background-color: #fff9f9;
+}
+  
+.book_cover{
+float: left;
+border-radius: 12px;
+height:300px; 
+width:200px; 
+}
   
   /* Slideshow container */
 .slide_show_container {
