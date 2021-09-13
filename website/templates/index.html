@@ -14,9 +14,10 @@
                 <div class="d-flex justify-content-center align-items-center h-100">
                     <div class="text-white">
                         <h1 class="mb-3">BooksHub</h1>
-                        <h5 class="mb-4">Best & free guide of responsive web design</h5>
-                        <a class="btn btn-outline-light btn-lg m-2" href="https://www.youtube.com/watch?v=c9B4TPnak1A" role="button" rel="nofollow" target="_blank">Start tutorial</a>
-                        <a class="btn btn-outline-light btn-lg m-2" href="https://mdbootstrap.com/docs/standard/" target="_blank" role="button">Download MDB UI KIT</a>
+                        <h5 class="mb-4">A web app for book lovers and everyday readers</h5>
+                        <h5 class="mb-4">Login or signup below to explore a world of possibilities with us through books!</h5>
+                        <a class="btn btn-outline-light btn-lg m-2" href="{{ url_for('auth.login') }}" role="button" rel="nofollow" target="_blank">Login</a>
+                        <a class="btn btn-outline-light btn-lg m-2" href="{{ url_for('auth.signup') }}" target="_blank" role="button">Signup</a>
                     </div>
                 </div>
             </div>
