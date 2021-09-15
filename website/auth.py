@@ -207,7 +207,6 @@ def book_page(key):
 @auth.route("/search_best_seller/<string:category>", methods=['GET', 'POST'])
 @login_required
 def search_best_seller(category):
-#     print(category)
     book.other_books = select_category(category)
     book.book_stack["Recent"] = book.other_books
     image_file = url_for('static', filename='img/' + current_user.image_file)
