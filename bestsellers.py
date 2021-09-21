@@ -12,9 +12,9 @@ def bestsellers_category():
   url = f"https://api.nytimes.com/svc/books/v3/lists/names.json?&api-key={api_key}"
   #print(url) don't print url (remember you're trying to hide it)
   response = requests.get(url)
-  print(response)
+  # print(response)
   results = response.json()['results']
-  print(results)
+  # print(results)
 #   for name_dict in results:
 #     print(name_dict['list_name'] + ': ' + name_dict['list_name_encoded'])
   
@@ -26,7 +26,7 @@ def select_category(user_input):
 
   output = requests.get(url)
   data = output.json()
-  print(data['results']['books'])
+  # print(data['results']['books'])
   entire_book_dic= {}
   for book in data['results']['books']:
     rank = book['rank']
@@ -69,7 +69,7 @@ def homepage_bestsellers():
     buy_links = book['buy_links'] 
     book_dic[book_image] = [title, author, product_url]
     entire_book_dic[book_image] = [title, author, product_url, isbn13]
-    count+=1
+    count += 1
 #   print(book_list['results']['books'])
 #   print(book_dic)
   return home_book_lst,entire_book_dic
