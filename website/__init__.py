@@ -1,4 +1,4 @@
-from os import path
+from os import path, environ
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager
@@ -12,7 +12,10 @@ def create_app():
     # database configuration
     app = Flask(__name__)
     app.config['SECRET_KEY'] = 'akdhej klklejio jh' 
-    app.config['SQLALCHEMY_DATABASE_URI'] = f'sqlite:///{DB_NAME}' # path to database and its name
+    # app.config['SQLALCHEMY_DATABASE_URI'] = f'sqlite:///{DB_NAME}' # path to database and its name
+    # using an environment variable DATABASE_URL, which is created by adding PostreSQL to the Heroku project, to tell SQLAlchemy where database is located
+    # if the DATABASE_URL is set, then we'll use that URL, otherwise, we'll use the sqlite one.
+    app.config['SQLALCHEMY_DATABASE_URI'] = environ.get('DATABASE_URL') or f'sqlite:///{DB_NAME}'
     #to disable a feature that signals the application every time a 
     # change is about to be made in the database
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False 
