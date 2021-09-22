@@ -2,7 +2,7 @@
 Web app for book lovers, made by my curious self and with more features! This project is basically me covering all the skills I learned during my summer internship as a developer and going the extra mile to build a fully developed web app (even though I suck at front end web development👀). 
 
 ## What I've learned working on this project
-- 📝 Hiding secret files like an api key in .env files
+- 📝 Hiding secret files like an api key in .env files and in config vars for deployment in Heroku
 - 📝 Setting up SSH for GitHub for my MacBook
     - 📌 Use GitHub's steps for the setup: https://docs.github.com/articles/generating-an-ssh-key/
     - 📌 This walkthrough video I found on Youtube will really help (for Mac users): https://youtu.be/nZYJKXXMvkM
