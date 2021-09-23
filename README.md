@@ -16,6 +16,9 @@ Web app for book lovers, made by my curious self and with more features! This pr
 ## 🚀 Demo
 Find a demo of this web app with this link: https://enterthebookshub.herokuapp.com
 ## 🧐 Features
+- Interactive Login page
+- Interactive Signup page
+
 ## 🛠 Installation Steps
 1. Clone the repository: 
 ```bash 
