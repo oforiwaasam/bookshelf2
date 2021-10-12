@@ -1,11 +1,15 @@
 // select DOM elements
 const time = document.getElementById('time'),
     greeting = document.getElementById('greeting'),
-    name = document.getElementById('name'),
+    username = document.getElementById('username'),
     focus = document.getElementById('focus');
+
+// Options
+const showAmPm = true;
 
 // Show time
 function showTime() {
+    // let today = new Date(2021, 06, 10, 20, 33, 30),
     let today = new Date(),
         // today.getHours returns a number between 0 and 23
         hour = today.getHours(),
@@ -19,7 +23,7 @@ function showTime() {
     hour = hour % 12 || 12;
 
     //output the time
-    time.innerHTML = `${hour}<span>:</span>${addZero(min)}<span>:</span>${addZero(sec)}`;
+    time.innerHTML = `${hour}<span>:</span>${addZero(min)}<span>:</span>${addZero(sec)} ${showAmPm ? amPm : ''}`;
 
     // call showTime every sec(1000msec)
     setTimeout(showTime, 1000);
@@ -32,6 +36,7 @@ function addZero(n) {
 
 // Set Background and Greeting
 function setBGreet() {
+    // let today = new Date(2021, 06, 10, 20, 33, 30),
     let today = new Date(),
         hour = today.getHours();
 
@@ -54,17 +59,60 @@ function setBGreet() {
 // Get Name 
 function getName() {
     // want to check if there is a local storage item called name
-    if (localStorage.getItem('name') === null) {
-        name.textContent = '[Enter Name]';
+    if (localStorage.getItem('username') === null) {
+        username.textContent = '[Enter Name]';
+        username.blur();
     } else {
-        name.textContent = localStorage.getItem('name');
+        username.textContent = localStorage.getItem('username');
     }
 }
+
+// Set Name
+function setName(e) {
+    if (e.type === 'keypress') {
+        // Make sure enter is pressed
+        if (e.which == 13 || e.keyCode == 13) {
+            localStorage.setItem('username', e.target.innerText);
+            username.blur();
+        }
+    } else {
+        localStorage.setItem('username', e.target.innerText);
+    }
+}
+
+// Get Focus 
+function getFocus() {
+    // want to check if there is a local storage item called name
+    if (localStorage.getItem('focus') === null) {
+        focus.textContent = '[Enter Focus]';
+    } else {
+        focus.textContent = localStorage.getItem('focus');
+    }
+}
+
+// Set Name
+function setFocus(e) {
+    if (e.type === 'keypress') {
+        // Make sure enter is pressed
+        if (e.which == 13 || e.keyCode == 13) {
+            localStorage.setItem('focus', e.target.innerText);
+            focus.blur();
+        }
+    } else {
+        localStorage.setItem('focus', e.target.innerText);
+    }
+}
+
+username.addEventListener('keypress', setName);
+username.addEventListener('blur', setName);
+focus.addEventListener('keypress', setFocus);
+focus.addEventListener('blur', setFocus);
 
 // run showTime
 showTime();
 setBGreet();
 getName();
+getFocus();
 
 
 
