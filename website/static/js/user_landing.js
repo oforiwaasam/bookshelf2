@@ -37,11 +37,23 @@ function setBGreet() {
 
     if (hour < 12) {
         // Morning
-        document.body.style.backgroundImage = "url(website/static/img/morning.jpeg)";
+        document.body.style.backgroundImage = "url('website/static/img/morning.jpeg')";
+        greeting.textContent = 'Good Morning';
     } else if (hour < 18) {
         // Afternoon
+        document.body.style.backgroundImage = "url('website/static/img/afternoon.jpeg')";
+        greeting.textContent = 'Good Afternoon';
+    } else {
+        // Evening
+        document.body.style.backgroundImage = "url('website/static/img/evening.jpeg')";
+        greeting.textContent = 'Good Evening';
+        document.body.style.color = 'white';
     }
 }
 
 // run showTime
 showTime();
+setBGreet();
+
+
+
