@@ -47,13 +47,24 @@ function setBGreet() {
         // Evening
         document.body.style.backgroundImage = "url('website/static/img/evening.jpeg')";
         greeting.textContent = 'Good Evening';
-        document.body.style.color = 'white';
+        //document.body.style.color = 'white';
+    }
+}
+
+// Get Name 
+function getName() {
+    // want to check if there is a local storage item called name
+    if (localStorage.getItem('name') === null) {
+        name.textContent = '[Enter Name]';
+    } else {
+        name.textContent = localStorage.getItem('name');
     }
 }
 
 // run showTime
 showTime();
 setBGreet();
+getName();
 
 
 
