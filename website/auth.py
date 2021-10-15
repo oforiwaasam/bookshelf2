@@ -19,7 +19,7 @@ def login():
     """
         # Bypass if user is logged in (check this out)
     if current_user.is_authenticated:
-        return redirect(url_for('auth.profile'))
+        return redirect(url_for('auth.user_landing'))
 
     # creating an instance of login form
     form = LoginForm()
@@ -31,7 +31,7 @@ def login():
             login_user(logged_user, remember=form.remember.data)
             flash("You've been successfully logged in", 'success')
             next_page = request.args.get('next')
-            return redirect(next_page or url_for('auth.profile'))
+            return redirect(next_page or url_for('auth.user_landing'))
 
         else:
             # Username does not exist
@@ -86,6 +86,15 @@ def save_picture(form_picture):
     new_image.save(picture_path)
 
     return picture_fn
+
+# user cannot access this route unless they are logged in
+@auth.route('/user_landing', methods=['GET', 'POST'])
+@login_required
+def user_landing():
+
+  image_file = url_for('static', filename='img/' + current_user.image_file)
+  #### Return a rendered profile.html file
+  return render_template("user_landing.html", user=current_user, image_file=image_file)
 
 
 # user cannot access this route unless they are logged in
