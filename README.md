@@ -32,4 +32,4 @@ cd bookshub
 🌟 You are all set
 ## 💻 Built with
 <hr>
-<p align="center">Developed with with passion❤️‍🔥 and curiosity🤔</p>
+<p align="center">Developed with passion❤️‍🔥 and curiosity🤔</p>
