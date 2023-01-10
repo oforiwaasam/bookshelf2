@@ -1,10 +1,13 @@
 import os
 import requests
 import json
-from dotenv import load_dotenv
-load_dotenv() # running this will create environment variables
+import config
+# from dotenv import load_dotenv
+# load_dotenv() # running this will create environment variables
 
-api_key = os.getenv('api_key')
+# api_key = os.getenv('api_key')
+api_key = config.api_key
+print(api_key)
 #print(type(api_key))
 
 def bestsellers_category():
@@ -48,6 +51,7 @@ def homepage_bestsellers():
   homepage_url = 'https://api.nytimes.com/svc/books/v3/lists/current/hardcover-fiction.json?&api-key=' + api_key
   response = requests.get(homepage_url)
   book_list = response.json()
+  print(book_list)
   entire_book_dic = {}
   book_dic = {}
   count = 0
@@ -70,8 +74,8 @@ def homepage_bestsellers():
     book_dic[book_image] = [title, author, product_url]
     entire_book_dic[book_image] = [title, author, product_url, isbn13]
     count += 1
-#   print(book_list['results']['books'])
-#   print(book_dic)
+  print(book_list['results']['books'])
+  print(book_dic)
   return home_book_lst,entire_book_dic
 
 def main():
